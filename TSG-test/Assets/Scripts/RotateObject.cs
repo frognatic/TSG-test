@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+#pragma warning disable 649
 public class RotateObject : MonoBehaviour
 {
     [SerializeField]
