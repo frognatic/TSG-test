@@ -5,13 +5,13 @@ using UnityEngine.UI;
 public class RotateObject : MonoBehaviour
 {
     [SerializeField]
-    private float _sensitivity = 1f;
-
+    private float sensitivity;
     [SerializeField] private ScrollRect mainScrollRect;
-    [SerializeField] private Transform modelTransform;
-    private Vector3 _mouseReference;
-    private Vector3 _mouseOffset;
-    private Vector3 _rotation = Vector3.zero;
+
+    private Transform modelTransform;
+    private Vector3 mouseReference;
+    private Vector3 mouseOffset;
+    private Vector3 rotation = Vector3.zero;
     private bool _isRotating;
 
     private void Awake()
@@ -24,17 +24,17 @@ public class RotateObject : MonoBehaviour
         mainScrollRect.enabled = !_isRotating;
         if (_isRotating)
         {
-            _mouseOffset = (Input.mousePosition - _mouseReference);
-            _rotation.y = -(_mouseOffset.x + _mouseOffset.y) * _sensitivity;
-            modelTransform.Rotate(_rotation);
-            _mouseReference = Input.mousePosition;
+            mouseOffset = (Input.mousePosition - mouseReference);
+            rotation.y = -(mouseOffset.x + mouseOffset.y) * sensitivity;
+            modelTransform.Rotate(rotation);
+            mouseReference = Input.mousePosition;
         }
     }
 
     void OnMouseDown()
     {
         _isRotating = true;
-        _mouseReference = Input.mousePosition;
+        mouseReference = Input.mousePosition;
     }
 
     void OnMouseUp()

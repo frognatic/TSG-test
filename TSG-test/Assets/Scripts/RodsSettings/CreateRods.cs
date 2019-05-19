@@ -18,13 +18,26 @@ public class CreateRods : MonoBehaviour
     [SerializeField] string[] rodNames;
     [SerializeField] private Sprite[] rodFrames;
     [SerializeField] private Sprite[] rodIcons;
+    [SerializeField] private GameObject[] rodModels;
 
     [SerializeField] private Transform rodsToSelectTransform;
-    
+
+    private List<SingleRodPanel> createdRods = new List<SingleRodPanel>();
+
+    private void OnEnable()
+    {
+        EventManager.Instance.OnSingleRodPanelClick += OnSingleRodPanelResponse;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnSingleRodPanelClick -= OnSingleRodPanelResponse;
+    }
 
     private void Awake()
     {
         Clear();
+        createdRods.Clear();
         InitRods();
     }
 
@@ -47,20 +60,48 @@ public class CreateRods : MonoBehaviour
                     GameObject singleRodObject = DisplayUtils.AddContentToParentObject(singleRodPrefab, gridPanel.transform);
                     SingleRodPanel singleRodPanel = singleRodObject.GetComponent<SingleRodPanel>();
 
+                    // always select first rod
+                    if (j == 0)
+                    {
+                        singleRodPanel.IsRodSelected = true;
+                        singleRodPanel.SelectedPanel.gameObject.SetActive(true);
+                    }
+
                     int randomIcon = Random.Range(0, rodIcons.Length);
                     int randomFrame = Random.Range(0, rodFrames.Length);
                     int randomName = Random.Range(0, rodNames.Length);
-                    singleRodPanel.Create(rodIcons[randomIcon], rodFrames[randomFrame], rodNames[randomName]);
-
+                    int randomModel = Random.Range(0, rodModels.Length);
+                    int randomSliderValue = j == 0 ? 100 : Random.Range(0, 100);
+                    singleRodPanel.Create(rodIcons[randomIcon], rodFrames[randomFrame], rodNames[randomName], randomModel, randomSliderValue);
+                    createdRods.Add(singleRodPanel);
                 }
             }
         }
     }
 
-    private IEnumerator DelayInit()
+    private void OnSingleRodPanelResponse(SingleRodPanel rod)
     {
-        yield return new WaitForEndOfFrame();
-        rodsToSelectTransform.gameObject.SetActive(true);
+        DeselectAllRods();
+        rod.IsRodSelected = true;
+        rod.SelectedPanel.gameObject.SetActive(true);
+        SwapSelectedModel(rod.SelectedRodModel);
+    }
+
+    private void SwapSelectedModel(int activeModel)
+    {
+        for (int i = 0; i < rodModels.Length; i++)
+        {
+            rodModels[i].SetActive(i == activeModel);
+        }
+    }
+
+    private void DeselectAllRods()
+    {
+        foreach (SingleRodPanel rod in createdRods)
+        {
+            rod.IsRodSelected = false;
+            rod.SelectedPanel.gameObject.SetActive(false);
+        }
     }
 
     private void Clear()

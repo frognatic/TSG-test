@@ -8,12 +8,48 @@ public class SingleRodPanel : MonoBehaviour
     [SerializeField] private Image rodIconImage;
     [SerializeField] private Image rodFrameBackgroundImage;
     [SerializeField] private TextMeshProUGUI rodNameText;
-    [SerializeField] private Transform selectedPanel;
+    [SerializeField] private Button selectButton;
+    [SerializeField] private SliderProgress sliderProgress;
+    [SerializeField] private Transform upgradeArrow;
 
-    public void Create(Sprite icon, Sprite frameIcon, string rodName)
+    public Transform SelectedPanel;
+
+    public bool IsRodSelected { get; set; }
+    public int SelectedRodModel { get; set; }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.OnFullyLoadRodSlider.AddListener(OnFullyLoadRodSliderResponseReceived);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnFullyLoadRodSlider.RemoveListener(OnFullyLoadRodSliderResponseReceived);
+    }
+
+    private void Awake()
+    {
+        selectButton.onClick.AddListener(OnClickRodIcon);
+    }
+
+    public void Create(Sprite icon, Sprite frameIcon, string rodName, int rodModel, int sliderValue)
     {
         rodIconImage.sprite = icon;
         rodFrameBackgroundImage.sprite = frameIcon;
         rodNameText.text = rodName;
+        SelectedPanel.gameObject.SetActive(IsRodSelected);
+        SelectedRodModel = rodModel;
+        sliderProgress.ProgressSlider.value = sliderValue;
+        upgradeArrow.gameObject.SetActive(false);
+    }
+
+    private void OnClickRodIcon()
+    {
+        EventManager.Instance.DispatchOnSingleRodPanelClick(this);
+    }
+
+    private void OnFullyLoadRodSliderResponseReceived()
+    {
+        upgradeArrow.gameObject.SetActive((int)sliderProgress.ProgressSlider.value == 100);
     }
 }
