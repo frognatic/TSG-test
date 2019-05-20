@@ -24,7 +24,7 @@ public class SliderProgress : MonoBehaviour
 
         if (IsFullyLoaded)
         {
-            EventManager.Instance.DispatchOnFullyLoadRodSlider();
+            EventManager.Instance.Dispatch(EventManager.ON_FULLY_LOAD_ROD_SLIDER);
         }
     }
 }

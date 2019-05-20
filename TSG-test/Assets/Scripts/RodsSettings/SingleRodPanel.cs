@@ -19,14 +19,14 @@ public class SingleRodPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.OnFullyLoadRodSlider.AddListener(OnFullyLoadRodSliderResponseReceived);
+        EventManager.Instance.Add(EventManager.ON_FULLY_LOAD_ROD_SLIDER, OnFullyLoadRodSliderResponseReceived);
     }
 
     private void OnDisable()
     {
         if (EventManager.Instance != null)
         {
-            EventManager.Instance.OnFullyLoadRodSlider.RemoveListener(OnFullyLoadRodSliderResponseReceived);
+            EventManager.Instance.Remove(EventManager.ON_FULLY_LOAD_ROD_SLIDER, OnFullyLoadRodSliderResponseReceived);
         }
     }
 
