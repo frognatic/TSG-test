@@ -1175,7 +1175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 540, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1080, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &222175396
@@ -2500,11 +2500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b948b1cb9a68840af3034cd13c32cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnFullyLoadRodSlider:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1 &617931341
 GameObject:
   m_ObjectHideFlags: 0

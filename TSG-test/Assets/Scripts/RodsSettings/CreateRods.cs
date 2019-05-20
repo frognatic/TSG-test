@@ -51,7 +51,7 @@ public class CreateRods : MonoBehaviour
             for (int i = 0 ; i < rodTypesToInitialize.Length; i++)
             {
                 GameObject textLabel = DisplayUtils.AddContentToParentObject(titleLabelRodPrefab, rodsToSelectTransform);
-                textLabel.GetComponent<TMP_Text>().text = rodCategories[i];
+                textLabel.GetComponent<TextMeshProUGUI>().text = rodCategories[i];
                 GameObject gridPanel = DisplayUtils.AddContentToParentObject(rodGridPrefab, rodsToSelectTransform);
                 for (int j = 0; j < rodTypesToInitialize[i]; j++)
                 {
