@@ -65,6 +65,7 @@ public class CreateRods : MonoBehaviour
                     {
                         singleRodPanel.IsRodSelected = true;
                         singleRodPanel.SelectedPanel.gameObject.SetActive(true);
+                        SwapSelectedModel(singleRodPanel.SelectedRodModel);
                     }
 
                     int randomIcon = Random.Range(0, rodIcons.Length);

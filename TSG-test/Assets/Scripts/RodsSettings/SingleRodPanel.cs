@@ -24,7 +24,10 @@ public class SingleRodPanel : MonoBehaviour
 
     private void OnDisable()
     {
-        EventManager.Instance.OnFullyLoadRodSlider.RemoveListener(OnFullyLoadRodSliderResponseReceived);
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.OnFullyLoadRodSlider.RemoveListener(OnFullyLoadRodSliderResponseReceived);
+        }
     }
 
     private void Awake()

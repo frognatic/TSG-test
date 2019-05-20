@@ -4,14 +4,31 @@ using UnityEngine.Events;
 
 public class EventManager : MonoBehaviour
 {
-    public static EventManager Instance;
+    private static EventManager instance;
+
+    public static EventManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType(typeof(EventManager)) as EventManager;
+            }
+            return instance;
+        }
+        set { instance = value; }
+    }
 
     public Action<SingleRodPanel> OnSingleRodPanelClick;
     public UnityEvent OnFullyLoadRodSlider;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     public void DispatchOnSingleRodPanelClick(SingleRodPanel rodPanel)
