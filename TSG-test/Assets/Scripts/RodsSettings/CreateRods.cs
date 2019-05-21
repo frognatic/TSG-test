@@ -16,11 +16,12 @@ public class CreateRods : MonoBehaviour
     [SerializeField] string[] rodNames;
     [SerializeField] private Sprite[] rodFrames;
     [SerializeField] private Sprite[] rodIcons;
-    [SerializeField] private GameObject[] rodModels;
 
     [SerializeField] private Transform rodsToSelectTransform;
 
     private List<SingleRodPanel> createdRods = new List<SingleRodPanel>();
+    private GameObject spawnedObject;
+    private int rodModelsCount;
 
     private void OnEnable()
     {
@@ -36,6 +37,7 @@ public class CreateRods : MonoBehaviour
     {
         Clear();
         createdRods.Clear();
+        rodModelsCount = ObjectPooler.Instance.Pools.Count;
         InitRods();
     }
 
@@ -63,13 +65,13 @@ public class CreateRods : MonoBehaviour
                     {
                         singleRodPanel.IsRodSelected = true;
                         singleRodPanel.SelectedPanel.gameObject.SetActive(true);
-                        SwapSelectedModel(singleRodPanel.SelectedRodModel);
+                        spawnedObject = ObjectPooler.Instance.SpawnFromPool(singleRodPanel.SelectedRodModel);
                     }
 
                     int randomIcon = Random.Range(0, rodIcons.Length);
                     int randomFrame = Random.Range(0, rodFrames.Length);
                     int randomName = Random.Range(0, rodNames.Length);
-                    int randomModel = Random.Range(0, rodModels.Length);
+                    int randomModel = Random.Range(0, rodModelsCount);
                     int randomSliderValue = j == 0 ? 100 : Random.Range(0, 100);
                     singleRodPanel.Create(rodIcons[randomIcon], rodFrames[randomFrame], rodNames[randomName], randomModel, randomSliderValue);
                     createdRods.Add(singleRodPanel);
@@ -83,15 +85,11 @@ public class CreateRods : MonoBehaviour
         DeselectAllRods();
         rod.IsRodSelected = true;
         rod.SelectedPanel.gameObject.SetActive(true);
-        SwapSelectedModel(rod.SelectedRodModel);
-    }
-
-    private void SwapSelectedModel(int activeModel)
-    {
-        for (int i = 0; i < rodModels.Length; i++)
+        if (spawnedObject != null)
         {
-            rodModels[i].SetActive(i == activeModel);
+            ObjectPooler.Instance.Despawn(spawnedObject);
         }
+        spawnedObject = ObjectPooler.Instance.SpawnFromPool(rod.SelectedRodModel);
     }
 
     private void DeselectAllRods()
