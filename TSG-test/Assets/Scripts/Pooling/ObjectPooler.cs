@@ -12,12 +12,12 @@ public class ObjectPooler : MonoBehaviour
         public GameObject prefab;
     }
 
-    public List<Pool> Pools;
-    private Dictionary<int, Queue<GameObject>> poolDictionary;
-    [SerializeField] private Transform parentToSpawn;
-
     public static ObjectPooler Instance;
+    public List<Pool> Pools;
 
+    [SerializeField] private Transform parentToSpawn;
+    private Dictionary<int, Queue<GameObject>> poolDictionary;
+    
     private void Awake()
     {
         Instance = this;
