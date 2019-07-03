@@ -1596,11 +1596,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Pools:
-  - rodId: 0
-    prefab: {fileID: 3478829042788333927, guid: 823403ddaab5cfc40810488440c6f1bf,
+  - RodId: 0
+    Prefab: {fileID: 3478829042788333927, guid: 823403ddaab5cfc40810488440c6f1bf,
       type: 3}
-  - rodId: 1
-    prefab: {fileID: 4636121248872049911, guid: 1ccf68346063c414bbff0053eaeac8f6,
+  - RodId: 1
+    Prefab: {fileID: 4636121248872049911, guid: 1ccf68346063c414bbff0053eaeac8f6,
       type: 3}
   parentToSpawn: {fileID: 1458533112}
 --- !u!4 &235222063

@@ -8,8 +8,8 @@ public class ObjectPooler : MonoBehaviour
     [Serializable]
     public class Pool
     {
-        public int rodId;
-        public GameObject prefab;
+        public int RodId;
+        public GameObject Prefab;
     }
 
     public static ObjectPooler Instance;
@@ -26,11 +26,11 @@ public class ObjectPooler : MonoBehaviour
         foreach (Pool pool in Pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
-            GameObject obj = Instantiate(pool.prefab, parentToSpawn);
+            GameObject obj = Instantiate(pool.Prefab, parentToSpawn);
             obj.SetActive(false);
             objectPool.Enqueue(obj);
 
-            poolDictionary.Add(pool.rodId, objectPool);
+            poolDictionary.Add(pool.RodId, objectPool);
         }
     }
 

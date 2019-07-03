@@ -12,7 +12,7 @@ public class EventManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = GameObject.FindObjectOfType(typeof(EventManager)) as EventManager;
+                instance = FindObjectOfType(typeof(EventManager)) as EventManager;
             }
             return instance;
         }

@@ -4,8 +4,7 @@ using UnityEngine.UI;
 #pragma warning disable 649
 public class RotateObject : MonoBehaviour
 {
-    [SerializeField]
-    private float sensitivity;
+    [SerializeField] private float sensitivity;
     [SerializeField] private ScrollRect mainScrollRect;
 
     private Transform modelTransform;
